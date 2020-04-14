@@ -1,6 +1,7 @@
 package subtask5
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import kotlin.reflect.KClass
 
 class Blocks {
@@ -34,9 +35,14 @@ class Blocks {
         return s
     }
 
-    private fun operateDates(blockA: Array<Any>): LocalDate {
-        var currentDate = LocalDate.now()
-        return currentDate
+    private fun operateDates(blockA: Array<Any>): String {
+        var date = LocalDate.MIN
+        blockA.forEach {
+            if (it is LocalDate && it.isAfter(date)) {
+                date = it
+            }
+        }
+        return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
     }
 }
 
